@@ -23,6 +23,10 @@ import requests
 
 img = Image.open('img.png')
 
+def load_lottiefile(filepath: str):
+        with open(filepath, "r") as f:
+            return json.load(f)
+
 
 
 st.set_page_config(page_title="Healthcare Analytics",page_icon=img)
@@ -46,6 +50,8 @@ def local_css(file_name):
 
 
 local_css("style.css")
+# lottie_wall = load_lottiefile("LottieFiles/Cancer.json")
+# st.sidebar.image(st_lottie(lottie_wall), use_column_width=False,width=None)
 
 with st.sidebar:
     selected = option_menu(
@@ -86,11 +92,9 @@ if selected=="About":
         icons=["clipboard-plus","clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     ) 
-    def load_lottiefile(filepath: str):
-        with open(filepath, "r") as f:
-            return json.load(f)
+    
     lottie_hello = load_lottiefile("LottieFiles/Lottie.json")
-    st.lottie(
+    st_lottie(
         lottie_hello,
     )
 
