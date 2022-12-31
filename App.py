@@ -29,7 +29,36 @@ def load_lottiefile(filepath: str):
 
 
 
-st.set_page_config(page_title="Healthcare Analytics",page_icon=img)
+st.set_page_config(page_title="Healthcare Analytics",page_icon=img, layout="wide")
+
+video_html = """
+		<style>
+
+		#myVideo {
+		  position: fixed;
+		  right: 0;
+		  bottom: 0;
+		  min-width: 100%; 
+		  min-height: 100%;
+		}
+
+		.content {
+		  position: fixed;
+		  bottom: 0;
+		  background: rgba(0, 0, 0, 0.5);
+		  color: #f1f1f1;
+		  width: 100%;
+		  padding: 20px;
+		}
+
+		</style>	
+		<video autoplay muted loop id="myVideo">
+		  <source src="")>
+		  Your browser does not support HTML5 video.
+		</video>
+        """
+
+st.markdown(video_html, unsafe_allow_html=True)
 
 hide_st_style = """
             <style>
@@ -92,14 +121,24 @@ if selected=="About":
         icons=["clipboard-plus","clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     ) 
+    if Navigation=="Diabetes":
+        lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+        st_lottie(
+            lottie_Cancer,
+        )
+    if Navigation=="Lung Cancer":
+        lottie_Cancer = load_lottiefile("LottieFiles/Cancer_2.json")
+        st_lottie(
+            lottie_Cancer,
+        )
+    if Navigation=="Breast Cancer":
+        lottie_Cancer = load_lottiefile("LottieFiles/Cancer.json")
+        st_lottie(
+            lottie_Cancer,
+        )
+
     
-    lottie_hello = load_lottiefile("LottieFiles/Lottie.json")
-    st_lottie(
-        lottie_hello,
-    )
-
-
-
+    
 if selected=="Data":
     Navigation = option_menu(
         menu_title=None,
