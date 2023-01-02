@@ -107,51 +107,93 @@ with st.sidebar:
 global numeric_columns
 global non_numeric_columns
 global Diabetes
-global Breast_Cancer
 global Lung_Cancer
 
 Diabetes = pd.read_csv('Diabetes.csv')
-Breast_Cancer = pd.read_csv("Breast Cancer.csv")
 Lung_Cancer = pd.read_csv("Lung Cancer.csv")
 
 if selected=="About":
-    Navigation = option_menu(
-        menu_title=None,
-        options=["Diabetes","Lung Cancer","Breast Cancer"],
-        icons=["clipboard-plus","clipboard-plus","clipboard-plus"],
-        orientation="horizontal"
-    ) 
-    if Navigation=="Diabetes":
-        lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
-        st_lottie(
-            lottie_Cancer,
-        )
-    if Navigation=="Lung Cancer":
-        lottie_Cancer = load_lottiefile("LottieFiles/Cancer_2.json")
-        st_lottie(
-            lottie_Cancer,
-        )
-    if Navigation=="Breast Cancer":
-        lottie_Cancer = load_lottiefile("LottieFiles/Cancer.json")
-        st_lottie(
-            lottie_Cancer,
-        )
+    # Navigation = option_menu(
+    #     menu_title=None,
+    #     options=["Diabetes","Lung Cancer"],
+    #     icons=["clipboard-plus","clipboard-plus"],
+    #     orientation="horizontal"
+    #) 
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+                st.header("Diabetes")
+                st.subheader('*Introduction*')
+                st.write("Diabetes is a chronic disease that occurs either when the pancreas does not produce enough insulin or when the body cannot effectively use the insulin it produces. Insulin is a hormone that regulates blood glucose. Hyperglycaemia, also called raised blood glucose or raised blood sugar, is a common effect of uncontrolled diabetes and over time leads to serious damage to many of the body's systems, especially the nerves and blood vessels.")
+        with right_column:
+            lottie_Cancer = load_lottiefile("LottieFiles/Cancer_2.json")
+            st_lottie(
+                lottie_Cancer,
+                height=400,
+                width=400,
+            )
+        with right_column:
+            st.write("In 2014, 8.5% of adults aged 18 years and older had diabetes. In 2019, diabetes was the direct cause of 1.5 million deaths and 48% of all deaths due to diabetes occurred before the age of 70 years. Another 460 000 kidney disease deaths were caused by diabetes, and raised blood glucose causes around 20% of cardiovascular deaths.Between 2000 and 2019, there was a 3% increase in age-standardized mortality rates from diabetes. In lower-middle-income countries, the mortality rate due to diabetes increased 13%. By contrast, the probability of dying from any one of the four main noncommunicable diseases (cardiovascular diseases, cancer, chronic respiratory diseases or diabetes) between the ages of 30 and 70 decreased by 22% globally between 2000 and 2019. ")
+        with left_column:
+            lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+            st_lottie(
+                lottie_Cancer,
+                height=400,
+                width=400,
+            )
+
+
+    with st.container():
+        left_column, right_column = st.columns(2)
+        with left_column:
+                st.header("Lung Cancer")
+                st.subheader('*Introduction*')
+                st.write("Lung cancer is a type of cancer that begins in the lungs. Your lungs are two spongy organs in your chest that take in oxygen when you inhale and release carbon dioxide when you exhale. Lung cancer is the leading cause of cancer deaths worldwide. People who smoke have the greatest risk of lung cancer, though lung cancer can also occur in people who have never smoked. The risk of lung cancer increases with the length of time and number of cigarettes you've smoked. If you quit smoking, even after smoking for many years, you can significantly reduce your chances of developing lung cancer.")
+        with right_column:
+            lottie_Cancer = load_lottiefile("LottieFiles/Cancer.json")
+            st_lottie(
+                lottie_Cancer,
+                height=400,
+                width=400,
+            )
+        
+        with right_column:
+            st.write("Lung cancer is the third most common cancer in the U.S. Health systems report over 200,000 new cases of lung cancer each year.")
+        with left_column:
+            lottie_Cancer = load_lottiefile("LottieFiles/Lung.json")
+            st_lottie(
+                lottie_Cancer,
+                height=400,
+                width=400,
+            )
 
     
     
 if selected=="Data":
     Navigation = option_menu(
         menu_title=None,
-        options=["Diabetes","Lung Cancer","Breast Cancer"],
-        icons=["clipboard-plus","clipboard-plus","clipboard-plus"],
+        options=["Diabetes","Lung Cancer"],
+        icons=["clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     )
     if Navigation=="Diabetes":
+        lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+        st_lottie(
+            lottie_Cancer,
+            height=400,
+            width=400,
+            
+        )
         st.write(Diabetes)
     if Navigation=="Lung Cancer":
+        lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+        st_lottie(
+            lottie_Cancer,
+            height=400,
+            width=400,
+            
+        )
         st.write(Lung_Cancer)
-    if Navigation=="Breast Cancer":
-        st.write(Breast_Cancer)
 
 
 
@@ -159,8 +201,8 @@ if selected=="Data":
 if selected=="Visualization":
     Navigation = option_menu(
         menu_title=None,
-        options=["Diabetes","Lung Cancer","Breast Cancer"],
-        icons=["clipboard-plus","clipboard-plus","clipboard-plus"],
+        options=["Diabetes","Lung Cancer"],
+        icons=["clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     ) 
 
@@ -187,20 +229,10 @@ if selected=="Visualization":
         plot = px.scatter(data_frame=Lung_Cancer, x=x_values, y=y_values, color=None)
         st.plotly_chart(plot)
 
-    if Navigation == "Breast Cancer":
-        numeric_columns = list(Breast_Cancer.select_dtypes(['float', 'int']).columns)
-        non_numeric_columns = list(Breast_Cancer.select_dtypes(['object']).columns)
-        non_numeric_columns.append(None)
-        print(non_numeric_columns)
-        x_values = st.selectbox('X axis', options=numeric_columns)
-        y_values = st.selectbox('Y axis', options=numeric_columns)
-        plot = px.scatter(data_frame=Breast_Cancer, x=x_values, y=y_values, color=None)
-        st.plotly_chart(plot)
-
 if selected == "Accuracy":
     dataset_name = st.sidebar.selectbox(
     'Select Dataset',
-    ('Diabetes', 'Lung Cancer', 'Breast Cancer')
+    ('Diabetes', 'Lung Cancer')
 )
 
 
@@ -224,8 +256,6 @@ if selected == "Accuracy":
             data = pd.read_csv('Diabetes.csv')
         elif name == 'Lung Cancer':
             data = pd.read_csv('Lung Cancer.csv')
-        else:
-            data = pd.read_csv('Breast Cancer.csv')
         X = data.iloc[:,:-1]
         y = data.iloc[:,-1]
         return X, y
@@ -303,8 +333,8 @@ if selected == "Accuracy":
 if selected=="Prediction":
     Navigation = option_menu(
         menu_title=None,
-        options=["Diabetes","Lung Cancer","Breast Cancer"],
-        icons=["clipboard-plus","clipboard-plus","clipboard-plus"],
+        options=["Diabetes","Lung Cancer"],
+        icons=["clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     ) 
     
@@ -329,7 +359,10 @@ if selected=="Prediction":
                         columns = ["Pregnancies", "Glucose", "Blood Pressure", "Skin Thickness", "Insulin", "BMI", "Diabetes Pedigree Function", "Age"])
             prediction = clf.predict(X)[0]
             st.write("Based on the data you have uploaded the model has trained itself to come to conclusion.")
-            st.info(f"The person is {prediction}") 
+            if prediction==1:
+                st.info(f"The person has Lung Cancer")
+            else:
+                st.info(f"The person is Healthy")
 
     if Navigation=="Lung Cancer":
         df = pd.read_csv("Lung Cancer.csv")
@@ -378,53 +411,12 @@ if selected=="Prediction":
                         columns = ["Gender","Age","Stoke","Yellow Fingers","Anxiety","Peer Pressure","Chronic Disease","Fatigue","Allegry","Wheezing","Alcohol Consumption","Coughing","Shortness of Breath","Swallowing Difficulty"])
             prediction = clf.predict(X)[0]
             st.write("Based on the data you have uploaded the model has trained itself to come to conclusion.")
-            st.info(f"The person is {prediction}")
+            if prediction==1:
+                st.info(f"The person has Lung Cancer")
+            else:
+                st.info(f"The person is Healthy")
 
-    if Navigation=="Breast Cancer":
-        df = pd.read_csv("Breast Cancer.csv")
-        X = df[["Mean_Radius","Mean_Texture","Mean_Perimeter","Mean_Area","Mean_Smoothness","Mean_Compactness","Mean_Concativity","Concave Mean_Points","Mean_Symmetry","Fractal_Dimension_Mean","Se_Radius","Se_Texture","Se_Perimeter","Se_Area","Se_Smoothness","Se_Compactness","Se_Concavity","Se_Concave Points","Se_Symmetry","Se_Fractal_Dimension","Radius_Worst","Texture_Worst","Perimeter_Worst","Area_Worst","Smoothness_Worst","Compactness_Worst","Concavity_Worst","Concave Points_Worst","Symmetry_Worst","Fractal_Dimension_Worst"]]
-        y = df["Outcome"]
-        clf = LogisticRegression() 
-        clf.fit(X, y)
-        joblib.dump(clf, "clf.pkl")
-        a = int(st.number_input("Enter the Mean Radius"))
-        b = int(st.number_input("Enter the Mean Texture"))
-        c = int(st.number_input("Enter the Mean Perimeter"))
-        d = int(st.number_input("Enter the Mean Area"))
-        e = st.number_input("Enter the Mean Smoothness")
-        f = st.number_input("Enter the Mean Compactness")
-        g = st.number_input("Enter the Mean Concativity")
-        h = st.number_input("Enter the Concave Mean Points")
-        i = st.number_input("Enter the Mean Symmetry")
-        j = st.number_input("Enter the Mean Fractal Dimension")
-        k = st.number_input("Enter the Se Radius")
-        l = st.number_input("Enter the Se Texture")
-        m = st.number_input("Enter the Se Perimeter")
-        n = st.number_input("Enter the Se Area")
-        o = st.number_input("Enter the Se_Smoothness")
-        p = st.number_input("Enter the Se_Compactness")
-        q = st.number_input("Enter the Se_Concavity")
-        r = st.number_input("Enter the Se_Concave Points")
-        s = st.number_input("Enter the Se_Symmetry")
-        t = st.number_input("Enter the Se_Fractal_Dimension")
-        u = st.number_input("Enter the Radius_Worst")
-        v = st.number_input("Enter the Texture_Worst")
-        w = st.number_input("Enter the Perimeter_Worst")
-        x = st.number_input("Enter the Area_Worst")
-        w = st.number_input("Enter the Smoothness_Worst")
-        z = st.number_input("Enter the Compactness_Worst")
-        aa = st.number_input("Enter the Concavity_Worst")
-        ab = st.number_input("Enter the Concave Points_Worst")
-        ac = st.number_input("Enter the Symmetry_Worst")
-        ad = st.number_input("Enter the Fractal_Dimension_Worst")
-
-        if st.button("Submit"):
-            clf = joblib.load("clf.pkl")
-            X = pd.DataFrame([[a, b, c, d, e, f, g, h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,aa,ab,ac,ad]], 
-                        columns = ["Mean_Radius","Mean_Texture","Mean_Perimeter","Mean_Area","Mean_Smoothness","Mean_Compactness","Mean_Concativity","Concave Mean_Points","Mean_Symmetry","Fractal_Dimension_Mean","Se_Radius","Se_Texture","Se_Perimeter","Se_Area","Se_Smoothness","Se_Compactness","Se_Concavity","Se_Concave Points","Se_Symmetry","Se_Fractal_Dimension","Radius_Worst","Texture_Worst","Perimeter_Worst","Area_Worst","Smoothness_Worst","Compactness_Worst","Concavity_Worst","Concave Points_Worst","Symmetry_Worst","Fractal_Dimension_Worst"])
-            prediction = clf.predict(X)[0]
-            st.write("Based on the data you have uploaded the model has trained itself to come to conclusion.")
-            st.info(f"The person is {prediction}") 
+        
 
 
 
