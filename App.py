@@ -18,7 +18,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from streamlit_lottie import st_lottie
 import json
-import requests
 
 
 img = Image.open('img.png')
@@ -28,8 +27,8 @@ def load_lottiefile(filepath: str):
             return json.load(f)
 
 
-
 st.set_page_config(page_title="Healthcare Analytics",page_icon=img, layout="wide")
+# st.sidebar.image(img, use_column_width=False,width=None)
 
 video_html = """
 		<style>
@@ -90,15 +89,15 @@ with st.sidebar:
         menu_icon=None,
         
         styles={
-                "container": {"padding": "0!important", "background-color": "97DECE"},  #background color for the Website
+                "container": {"padding": "0!important", "background-color": "#97DECE"},  #background color for the Website
                 "icon": {"color": "black", "font-size": "20px"},   # icon color for the tabs
                 "nav-link": {
                     "font-size": "20px",
                     "text-align": "left",
                     "margin": "0px",
-                    "--hover-color": "CBEDD5", # icon color after hover
+                    "--hover-color": "#62B6B7", # icon color after hover
                 },
-                "nav-link-selected": {"background-color": "62B6B7"},   # Colour when tab is selected  #ADD8E6
+                "nav-link-selected": {"background-color": "#62B6B7"},   # Colour when tab is selected  #ADD8E6
                 "icon": {"color": "black", "font-size": "20px"},   # icon color
         },
     )
@@ -107,18 +106,19 @@ with st.sidebar:
 global numeric_columns
 global non_numeric_columns
 global Diabetes
-global Lung_Cancer
+global Breast_Cancer
 
 Diabetes = pd.read_csv('Diabetes.csv')
-Lung_Cancer = pd.read_csv("Lung Cancer.csv")
+Breast_Cancer = pd.read_csv("Breast Cancer.csv")
 
 if selected=="About":
     # Navigation = option_menu(
     #     menu_title=None,
-    #     options=["Diabetes","Lung Cancer"],
+    #     options=["Diabetes","Breast Cancer"],
     #     icons=["clipboard-plus","clipboard-plus"],
     #     orientation="horizontal"
     #) 
+    st.title('*Diabetes and Breast Cancer*')
     with st.container():
         left_column, right_column = st.columns(2)
         with left_column:
@@ -133,6 +133,7 @@ if selected=="About":
                 width=400,
             )
         with right_column:
+            st.subheader('*Growth Rate*')
             st.write("In 2014, 8.5% of adults aged 18 years and older had diabetes. In 2019, diabetes was the direct cause of 1.5 million deaths and 48% of all deaths due to diabetes occurred before the age of 70 years. Another 460 000 kidney disease deaths were caused by diabetes, and raised blood glucose causes around 20% of cardiovascular deaths.Between 2000 and 2019, there was a 3% increase in age-standardized mortality rates from diabetes. In lower-middle-income countries, the mortality rate due to diabetes increased 13%. By contrast, the probability of dying from any one of the four main noncommunicable diseases (cardiovascular diseases, cancer, chronic respiratory diseases or diabetes) between the ages of 30 and 70 decreased by 22% globally between 2000 and 2019. ")
         with left_column:
             lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
@@ -146,9 +147,9 @@ if selected=="About":
     with st.container():
         left_column, right_column = st.columns(2)
         with left_column:
-                st.header("Lung Cancer")
+                st.header("Breast Cancer")
                 st.subheader('*Introduction*')
-                st.write("Lung cancer is a type of cancer that begins in the lungs. Your lungs are two spongy organs in your chest that take in oxygen when you inhale and release carbon dioxide when you exhale. Lung cancer is the leading cause of cancer deaths worldwide. People who smoke have the greatest risk of lung cancer, though lung cancer can also occur in people who have never smoked. The risk of lung cancer increases with the length of time and number of cigarettes you've smoked. If you quit smoking, even after smoking for many years, you can significantly reduce your chances of developing lung cancer.")
+                st.write("Breast cancer is cancer that forms in the cells of the breasts. After skin cancer, breast cancer is the most common cancer diagnosed in women in the United States. Breast cancer can occur in both men and women, but it's far more common in women. Substantial support for breast cancer awareness and research funding has helped create advances in the diagnosis and treatment of breast cancer. Breast cancer survival rates have increased, and the number of deaths associated with this disease is steadily declining, largely due to factors such as earlier detection, a new personalized approach to treatment and a better understanding of the disease.")
         with right_column:
             lottie_Cancer = load_lottiefile("LottieFiles/Cancer.json")
             st_lottie(
@@ -158,9 +159,10 @@ if selected=="About":
             )
         
         with right_column:
-            st.write("Lung cancer is the third most common cancer in the U.S. Health systems report over 200,000 new cases of lung cancer each year.")
+            st.subheader('*Causes*')
+            st.write("Doctors know that breast cancer occurs when some breast cells begin to grow abnormally. These cells divide more rapidly than healthy cells do and continue to accumulate, forming a lump or mass. Cells may spread (metastasize) through your breast to your lymph nodes or to other parts of your body. Breast cancer most often begins with cells in the milk-producing ducts (invasive ductal carcinoma). Breast cancer may also begin in the glandular tissue called lobules (invasive lobular carcinoma) or in other cells or tissue within the breast. Researchers have identified hormonal, lifestyle and environmental factors that may increase your risk of breast cancer. But it's not clear why some people who have no risk factors develop cancer, yet other people with risk factors never do. It's likely that breast cancer is caused by a complex interaction of your genetic makeup and your environment.")
         with left_column:
-            lottie_Cancer = load_lottiefile("LottieFiles/Lung.json")
+            lottie_Cancer = load_lottiefile("LottieFiles/Cancer_3.json")
             st_lottie(
                 lottie_Cancer,
                 height=400,
@@ -172,7 +174,7 @@ if selected=="About":
 if selected=="Data":
     Navigation = option_menu(
         menu_title=None,
-        options=["Diabetes","Lung Cancer"],
+        options=["Diabetes","Breast Cancer"],
         icons=["clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     )
@@ -185,7 +187,7 @@ if selected=="Data":
             
         )
         st.write(Diabetes)
-    if Navigation=="Lung Cancer":
+    if Navigation=="Breast Cancer":
         lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
         st_lottie(
             lottie_Cancer,
@@ -193,7 +195,7 @@ if selected=="Data":
             width=400,
             
         )
-        st.write(Lung_Cancer)
+        st.write(Breast_Cancer)
 
 
 
@@ -201,7 +203,7 @@ if selected=="Data":
 if selected=="Visualization":
     Navigation = option_menu(
         menu_title=None,
-        options=["Diabetes","Lung Cancer"],
+        options=["Diabetes","Breast Cancer"],
         icons=["clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     ) 
@@ -213,26 +215,26 @@ if selected=="Visualization":
         non_numeric_columns = list(Diabetes.select_dtypes(['object']).columns)
         non_numeric_columns.append(None)
         print(non_numeric_columns)
-        x_values = st.selectbox('X axis', options=numeric_columns)
-        y_values = st.selectbox('Y axis', options=numeric_columns)
+        x_values = st.sidebar.selectbox('X axis', options=numeric_columns)
+        y_values = st.sidebar.selectbox('Y axis', options=numeric_columns)
         # color_value = st.sidebar.selectbox("Color", options=non_numeric_columns)
-        plot = px.scatter(data_frame=Diabetes, x=x_values, y=y_values, color=None)
+        plot = px.scatter(data_frame=Diabetes, x=x_values, y=y_values, color=None, color_discrete_sequence=['green'])
         st.plotly_chart(plot)
 
-    if Navigation == "Lung Cancer":
-        numeric_columns = list(Lung_Cancer.select_dtypes(['float', 'int']).columns)
-        non_numeric_columns = list(Lung_Cancer.select_dtypes(['object']).columns)
+    if Navigation == "Breast Cancer":
+        numeric_columns = list(Breast_Cancer.select_dtypes(['float', 'int']).columns)
+        non_numeric_columns = list(Breast_Cancer.select_dtypes(['object']).columns)
         non_numeric_columns.append(None)
         print(non_numeric_columns)
-        x_values = st.selectbox('X axis', options=numeric_columns)
-        y_values = st.selectbox('Y axis', options=numeric_columns)
-        plot = px.scatter(data_frame=Lung_Cancer, x=x_values, y=y_values, color=None)
+        x_values = st.sidebar.selectbox('X axis', options=numeric_columns)
+        y_values = st.sidebar.selectbox('Y axis', options=numeric_columns)
+        plot = px.scatter(data_frame=Breast_Cancer, x=x_values, y=y_values, color=None, color_discrete_sequence=['green'])
         st.plotly_chart(plot)
 
 if selected == "Accuracy":
     dataset_name = st.sidebar.selectbox(
     'Select Dataset',
-    ('Diabetes', 'Lung Cancer')
+    ('Diabetes', 'Breast Cancer')
 )
 
 
@@ -246,7 +248,7 @@ if selected == "Accuracy":
         st.write("K-NN algorithm assumes the similarity between the new case/data and available cases and put the new case into the category that is most similar to the available categories.")
     if classifier_name=='Support Vector Machine':
         st.write("SVM algorithm is used to create the best line or decision boundary that can segregate n-dimensional space into classes so that we can easily put the new data point in the correct category in the future. This best decision boundary is called a hyperplane.")
-    else:
+    if classifier_name=='Random Forest':
         st.write("Random forest is a commonly-used machine learning algorithm trademarked by Leo Breiman and Adele Cutler, which combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems.")
     
     
@@ -254,8 +256,8 @@ if selected == "Accuracy":
         data = None
         if name == 'Diabetes':
             data = pd.read_csv('Diabetes.csv')
-        elif name == 'Lung Cancer':
-            data = pd.read_csv('Lung Cancer.csv')
+        elif name == 'Breast Cancer':
+            data = pd.read_csv('Breast Cancer.csv')
         X = data.iloc[:,:-1]
         y = data.iloc[:,-1]
         return X, y
@@ -333,7 +335,7 @@ if selected == "Accuracy":
 if selected=="Prediction":
     Navigation = option_menu(
         menu_title=None,
-        options=["Diabetes","Lung Cancer"],
+        options=["Diabetes","Breast Cancer"],
         icons=["clipboard-plus","clipboard-plus"],
         orientation="horizontal"
     ) 
@@ -360,59 +362,57 @@ if selected=="Prediction":
             prediction = clf.predict(X)[0]
             st.write("Based on the data you have uploaded the model has trained itself to come to conclusion.")
             if prediction==1:
-                st.info(f"The person has Lung Cancer")
+                st.info(f"The person has Breast Cancer")
             else:
                 st.info(f"The person is Healthy")
 
-    if Navigation=="Lung Cancer":
-        df = pd.read_csv("Lung Cancer.csv")
-        X = df[["Gender","Age","Stoke","Yellow Fingers","Anxiety","Peer Pressure","Chronic Disease","Fatigue","Allegry","Wheezing","Alcohol Consumption","Coughing","Shortness of Breath","Swallowing Difficulty"]]
+    if Navigation=="Breast Cancer":
+        df = pd.read_csv("Breast Cancer.csv")
+        X = df[["Mean_Radius","Mean_Texture","Mean_Perimeter","Mean_Area",
+        "Mean_Smoothness",
+        "Concave Mean_Points",
+        "Mean_Symmetry",
+        "Fractal_Dimension_Mean",
+        "Se_Radius",
+        "Se_Texture",
+        "Se_Perimeter",
+        "Se_Area",
+        "Se_Smoothness",
+        "Se_Concave Points",
+        "Se_Symmetry",
+        "Se_Fractal_Dimension"
+        ]]
         y = df["Outcome"]
         clf = LogisticRegression() 
         clf.fit(X, y)
         joblib.dump(clf, "clf.pkl")
-        a = st.selectbox(
-            'Select Gender',
-            ('Male', 'Female')
-            )
-        if a == 'Male':
-            a = 1
-        else:
-            a = 0
-        b = st.number_input("Enter the Age")
-        c = st.number_input("Enter the Stoke Duration")
-        d = st.number_input("Enter the Duration of Yellow Fingers")
-        e = st.number_input("Enter the Anxiety Rate")
-        f = st.selectbox(
-            "Enter Peer Pressure if any",
-            (1,0)
-            )
-        g = st.number_input("Enter the Chronic Disease rate")
-        h = st.number_input("Enter the Fatigue rate")
-        i = st.number_input("Enter the Allergy (if any)")
-        j = st.number_input("Enter the Wheezing")
-        k = st.selectbox(
-            "Enter Alcohol Consumption (if any)",
-            (1,0)
-            )
-        l = st.number_input("Enter the Coughing rate")
-        m = st.selectbox(
-            "Enter the Shortness of Breath",
-            (0,1)
-            )
-        n = st.selectbox(
-            "Enter Swallowing Difficulty",
-            (0,1)
-            )
+        b = st.number_input("Enter the Mean Radius")
+        c = st.number_input("Enter the Mean Texture")
+        d = st.number_input("Enter the Mean Perimeter")
+        e = st.number_input("Enter the Mean Area")
+        f = st.number_input("Enter the Mean Smoothness")
+        g = st.number_input("Enter the Mean Concave Points")
+        h = st.number_input("Enter the Mean Symmetry")
+        i = st.number_input("Enter the Mean Fractional Dimension")
+        k = st.number_input("Enter the Se Radius")
+        l = st.number_input("Enter the Se Texture")
+        m = st.number_input("Enter the Se Perimeter")
+        n = st.number_input("Enter the Se Area")
+        o = st.number_input("Enter the Se Smoothness")
+        p = st.number_input("Enter the Se Concave Points")
+        q = st.number_input("Enter the Se Symmetry")
+        r = st.number_input("Enter the Se Fractional Dimension")
+
+
 
         if st.button("Submit"):
             clf = joblib.load("clf.pkl")
-            X = pd.DataFrame([[a, b, c, d, e, f, g, h,i,j,k,l,m,n]], 
-                        columns = ["Gender","Age","Stoke","Yellow Fingers","Anxiety","Peer Pressure","Chronic Disease","Fatigue","Allegry","Wheezing","Alcohol Consumption","Coughing","Shortness of Breath","Swallowing Difficulty"])
+            X = pd.DataFrame([[b,c,d,e,f,g,h,i,k,l,m,n,o,p,q,r]], 
+                        columns = ["Mean_Radius","Mean_Texture","Mean_Perimeter","Mean_Area","Mean_Smoothness","Concave Mean_Points","Mean_Symmetry","Fractal_Dimension_Mean","Se_Radius","Se_Texture","Se_Perimeter","Se_Area","Se_Smoothness","Se_Concave Points","Se_Symmetry","Se_Fractal_Dimension"])
             prediction = clf.predict(X)[0]
             st.write("Based on the data you have uploaded the model has trained itself to come to conclusion.")
             if prediction==1:
-                st.info(f"The person has Lung Cancer")
+                st.info(f"The person has Breast Cancer")
             else:
                 st.info(f"The person is Healthy")
 
