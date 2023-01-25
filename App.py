@@ -1,4 +1,4 @@
-import streamlit as st
+    import streamlit as st
 from  PIL import Image
 from streamlit_option_menu import option_menu
 import pandas as pd
@@ -84,8 +84,8 @@ local_css("style.css")
 with st.sidebar:
     selected = option_menu(
         menu_title=None,
-        options=["About","Data","Visualization","Accuracy","Prediction"],
-        icons=["house","activity","clipboard-data","file-text","graph-up-arrow"],
+        options=["About","Visualization","Accuracy","Prediction"],
+        icons=["house","clipboard-data","file-text","graph-up-arrow"],
         menu_icon=None,
         
         styles={
@@ -126,7 +126,7 @@ if selected=="About":
                 st.subheader('*Introduction*')
                 st.write("Diabetes is a chronic disease that occurs either when the pancreas does not produce enough insulin or when the body cannot effectively use the insulin it produces. Insulin is a hormone that regulates blood glucose. Hyperglycaemia, also called raised blood glucose or raised blood sugar, is a common effect of uncontrolled diabetes and over time leads to serious damage to many of the body's systems, especially the nerves and blood vessels.")
         with right_column:
-            lottie_Cancer = load_lottiefile("LottieFiles/Cancer_2.json")
+            lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
             st_lottie(
                 lottie_Cancer,
                 height=400,
@@ -136,7 +136,7 @@ if selected=="About":
             st.subheader('*Growth Rate*')
             st.write("In 2014, 8.5% of adults aged 18 years and older had diabetes. In 2019, diabetes was the direct cause of 1.5 million deaths and 48% of all deaths due to diabetes occurred before the age of 70 years. Another 460 000 kidney disease deaths were caused by diabetes, and raised blood glucose causes around 20% of cardiovascular deaths.Between 2000 and 2019, there was a 3% increase in age-standardized mortality rates from diabetes. In lower-middle-income countries, the mortality rate due to diabetes increased 13%. By contrast, the probability of dying from any one of the four main noncommunicable diseases (cardiovascular diseases, cancer, chronic respiratory diseases or diabetes) between the ages of 30 and 70 decreased by 22% globally between 2000 and 2019. ")
         with left_column:
-            lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+            lottie_Cancer = load_lottiefile("LottieFiles/Cancer_2.json")
             st_lottie(
                 lottie_Cancer,
                 height=400,
@@ -171,31 +171,31 @@ if selected=="About":
 
     
     
-if selected=="Data":
-    Navigation = option_menu(
-        menu_title=None,
-        options=["Diabetes","Breast Cancer"],
-        icons=["clipboard-plus","clipboard-plus"],
-        orientation="horizontal"
-    )
-    if Navigation=="Diabetes":
-        lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
-        st_lottie(
-            lottie_Cancer,
-            height=400,
-            width=400,
+# if selected=="Data":
+#     Navigation = option_menu(
+#         menu_title=None,
+#         options=["Diabetes","Breast Cancer"],
+#         icons=["clipboard-plus","clipboard-plus"],
+#         orientation="horizontal"
+#     )
+#     if Navigation=="Diabetes":
+#         lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+#         st_lottie(
+#             lottie_Cancer,
+#             height=400,
+#             width=400,
             
-        )
-        st.write(Diabetes)
-    if Navigation=="Breast Cancer":
-        lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
-        st_lottie(
-            lottie_Cancer,
-            height=400,
-            width=400,
+#         )
+#         st.write(Diabetes)
+#     if Navigation=="Breast Cancer":
+#         lottie_Cancer = load_lottiefile("LottieFiles/Diabetes.json")
+#         st_lottie(
+#             lottie_Cancer,
+#             height=400,
+#             width=400,
             
-        )
-        st.write(Breast_Cancer)
+#         )
+#         st.write(Breast_Cancer)
 
 
 
@@ -218,7 +218,7 @@ if selected=="Visualization":
         x_values = st.sidebar.selectbox('X axis', options=numeric_columns)
         y_values = st.sidebar.selectbox('Y axis', options=numeric_columns)
         # color_value = st.sidebar.selectbox("Color", options=non_numeric_columns)
-        plot = px.scatter(data_frame=Diabetes, x=x_values, y=y_values, color=None, color_discrete_sequence=['green'])
+        plot = px.scatter(data_frame=Diabetes, x=x_values, y=y_values, color=None, color_discrete_sequence=['blue'])
         st.plotly_chart(plot)
 
     if Navigation == "Breast Cancer":
@@ -228,7 +228,7 @@ if selected=="Visualization":
         print(non_numeric_columns)
         x_values = st.sidebar.selectbox('X axis', options=numeric_columns)
         y_values = st.sidebar.selectbox('Y axis', options=numeric_columns)
-        plot = px.scatter(data_frame=Breast_Cancer, x=x_values, y=y_values, color=None, color_discrete_sequence=['green'])
+        plot = px.scatter(data_frame=Breast_Cancer, x=x_values, y=y_values, color=None, color_discrete_sequence=['blue'])
         st.plotly_chart(plot)
 
 if selected == "Accuracy":
@@ -237,26 +237,25 @@ if selected == "Accuracy":
     ('Diabetes', 'Breast Cancer')
 )
 
-
     classifier_name = st.sidebar.selectbox(
         'Select classifier',
         ('K-Nearest Neighbour', 'Support Vector Machine', 'Random Forest')
     )
 
-    st.write(f"## {dataset_name} Accuracy for {classifier_name}")
+    st.write(f"## Applying {classifier_name} algorithm for {dataset_name} Dataset")
+
     if classifier_name=='K-Nearest Neighbour':
-        st.write("K-NN algorithm assumes the similarity between the new case/data and available cases and put the new case into the category that is most similar to the available categories.")
+            st.write("K-NN algorithm assumes the similarity between the new case/data and available cases and put the new case into the category that is most similar to the available categories.")
     if classifier_name=='Support Vector Machine':
-        st.write("SVM algorithm is used to create the best line or decision boundary that can segregate n-dimensional space into classes so that we can easily put the new data point in the correct category in the future. This best decision boundary is called a hyperplane.")
+            st.write("SVM algorithm is used to create the best line or decision boundary that can segregate n-dimensional space into classes so that we can easily put the new data point in the correct category in the future. This best decision boundary is called a hyperplane.")
     if classifier_name=='Random Forest':
-        st.write("Random forest is a commonly-used machine learning algorithm trademarked by Leo Breiman and Adele Cutler, which combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems.")
-    
-    
+            st.write("Random forest is a commonly-used machine learning algorithm trademarked by Leo Breiman and Adele Cutler, which combines the output of multiple decision trees to reach a single result. Its ease of use and flexibility have fueled its adoption, as it handles both classification and regression problems.")
+
     def get_dataset(name):
         data = None
         if name == 'Diabetes':
             data = pd.read_csv('Diabetes.csv')
-        elif name == 'Breast Cancer':
+        else:
             data = pd.read_csv('Breast Cancer.csv')
         X = data.iloc[:,:-1]
         y = data.iloc[:,-1]
@@ -268,10 +267,10 @@ if selected == "Accuracy":
 
     def add_parameter_ui(clf_name):
         params = dict()
-        if clf_name == 'SVM':
+        if clf_name == 'Support Vector Machine':
             C = st.sidebar.slider('C', 0.01, 10.0)
             params['C'] = C
-        elif clf_name == 'KNN':
+        elif clf_name == 'K-Nearest Neighbour':
             K = st.sidebar.slider('K', 1, 15)
             params['K'] = K
         else:
@@ -285,9 +284,9 @@ if selected == "Accuracy":
 
     def get_classifier(clf_name, params):
         clf = None
-        if clf_name == 'SVM':
+        if clf_name == 'Support Vector Machine':
             clf = SVC(C=params['C'])
-        elif clf_name == 'KNN':
+        elif clf_name == 'K-Nearest Neighbour':
             clf = KNeighborsClassifier(n_neighbors=params['K'])
         else:
             clf = clf = RandomForestClassifier(n_estimators=params['n_estimators'], 
@@ -305,7 +304,7 @@ if selected == "Accuracy":
     acc = accuracy_score(y_test, y_pred)
 
     st.write(f'Classifier: {classifier_name}')
-    st.write(f'Accuracy: ', acc)
+    st.write(f'Accuracy:', acc)
 
     #### PLOT DATASET ####
     # Project the data onto the 2 primary principal components
